@@ -1,5 +1,5 @@
 theme = "blowfish"
-baseURL = "http://lijiaxing.cn/"
+baseURL = "https://lijiaxing.cn/"
 defaultContentLanguage = "zh-cn"
 
 enableRobotsTXT = true
