@@ -1,0 +1,19 @@
+theme = "blowfish"
+baseURL = "http://lijiaxing.cn/"
+defaultContentLanguage = "zh-cn"
+
+enableRobotsTXT = true
+summaryLength = 0
+enableEmoji = true
+
+[pagination]
+  pagerSize = 100
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  author = "authors"
+  series = "series"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

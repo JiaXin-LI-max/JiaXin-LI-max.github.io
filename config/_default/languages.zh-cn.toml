@@ -1,0 +1,22 @@
+disabled = false
+locale = "zh-cn"
+label = "中文"
+weight = 1
+title = "李佳兴"
+
+[params]
+  displayName = "中文"
+  isoCode = "zh-cn"
+  rtl = false
+  dateFormat = "2006年1月2日"
+  description = "李佳兴的个人网站"
+
+  [params.author]
+    name = "李佳兴"
+    image = "img/avatar.jpg"
+    headline = "仪器科学与技术在读 · FPGA / 数字IC 方向"
+    bio = "记录学习、折腾与生活。"
+    links = [
+      { github = "https://github.com/JiaXin-LI-max" },
+      { email = "mailto:a520ljx@petalmail.com" },
+    ]

@@ -1,0 +1,19 @@
+[[main]]
+  name = "随笔"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "星图"
+  pageRef = "starfield"
+  weight = 20
+
+[[main]]
+  name = "每周计划"
+  pageRef = "weekly"
+  weight = 30
+
+[[main]]
+  name = "Projects"
+  pageRef = "projects"
+  weight = 40

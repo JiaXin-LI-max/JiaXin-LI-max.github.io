@@ -1,0 +1,102 @@
+/* ===== 1. 全局字体：霞鹜文楷（由 extend-head.html 加载）===== */
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "LXGW WenKai Screen", ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif !important;
+}
+/* 代码块保持等宽字体，不受影响 */
+
+/* ===== 2. 动态背景：底层流动极光 + 上层漂移光斑 ===== */
+html body {
+    background: #eef2f7 !important;
+}
+
+html.dark body {
+    background: #0b1120 !important;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: linear-gradient(-45deg, #e3ecfb, #fbe9f3, #e2f6f4, #ecebfa);
+    background-size: 400% 400%;
+    animation: aurora 40s ease-in-out infinite;
+}
+
+html.dark body::before {
+    background-image: linear-gradient(-45deg, #0b1120, #16255a, #0b2b3d, #251f52);
+}
+
+@keyframes aurora {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(520px 380px at 12% 18%, rgba(139, 92, 246, 0.10), transparent 70%), radial-gradient(640px 460px at 88% 78%, rgba(14, 165, 233, 0.10), transparent 70%);
+    animation: drift 26s ease-in-out infinite alternate;
+}
+
+html.dark body::after {
+    background-image: radial-gradient(520px 380px at 12% 18%, rgba(139, 92, 246, 0.16), transparent 70%), radial-gradient(640px 460px at 88% 78%, rgba(14, 165, 233, 0.16), transparent 70%);
+}
+
+@keyframes drift {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+        transform: translate3d(46px, -34px, 0) scale(1.07);
+    }
+}
+
+/* 访客系统开了「减少动态效果」就自动停，照顾晕动症用户 */
+@media (prefers-reduced-motion: reduce) {
+    body::before, body::after {
+        animation: none !important;
+    }
+}
+
+/* ===== 3. 头像光圈 + 悬停微放大 ===== */
+main img[src*="avatar"] {
+    border-radius: 9999px;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 10px 32px rgba(31, 41, 55, 0.18);
+    transition: transform 0.3s ease;
+}
+
+    main img[src*="avatar"]:hover {
+        transform: scale(1.05);
+    }
+
+html.dark main img[src*="avatar"] {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14), 0 10px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== 4. 卡片悬停轻轻上浮 ===== */
+main .grid article {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    main .grid article:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(31, 41, 55, 0.12);
+    }
+
+html.dark main .grid article:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}

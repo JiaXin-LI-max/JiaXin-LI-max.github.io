@@ -1,0 +1,67 @@
+baseURL: "http://lijiaxing.cn/"
+languageCode: "zh-cn"
+title: "我的博客"
+theme: "PaperMod"
+
+pagination:
+  pagerSize: 5
+
+enableRobotsTXT: true
+
+params:
+  env: production
+  author: "李佳兴"
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+
+  homeInfoParams:
+    Title: "你好，我是 李佳兴 👋"
+    Content: >
+      欢迎来到我的博客，这里记录我的学习与思考。
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/JiaXin-LI-max"
+
+menu:
+  main:
+    - identifier: starfield
+      name: "🌌 星图"
+      url: /starfield/
+      weight: 5
+    - identifier: weekly
+      name: "✅ 每周计划"
+      url: /weekly/
+      weight: 10
+    - identifier: projects
+      name: "🧪 Projects"
+      url: /projects/
+      weight: 15
+    - identifier: posts
+      name: "📝 随笔"
+      url: /posts/
+      weight: 20
+    - identifier: archives
+      name: "归档"
+      url: /archives/
+      weight: 25
+    - identifier: tags
+      name: "标签"
+      url: /tags/
+      weight: 30
+    - identifier: search
+      name: "搜索"
+      url: /search/
+      weight: 35
+    - identifier: about
+      name: "关于"
+      url: /about/
+      weight: 40
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
