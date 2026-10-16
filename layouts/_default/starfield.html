@@ -1,0 +1,35 @@
+{{ define "main" }}
+{{ $atlas := hugo.Data.learning.skills }}{{ $nodes := dict }}{{ range $atlas.skills }}{{ $nodes = merge $nodes (dict .id .) }}{{ end }}
+<article class="starfield-page learning-page" data-starfield>
+  <header class="learning-heading"><div><p class="page-eyebrow">SKILL CONSTELLATIONS</p><h1>我的技能星图</h1><p class="page-description">每学会一项，就点亮一颗星。让零散的努力，慢慢连成自己的路径。</p></div><a class="learning-link" href="{{ "weekly/" | relURL }}">回到每周计划 <span aria-hidden="true">↗</span></a></header>
+  <div class="atlas-overview"><div><strong data-star-count>0</strong><span> / {{ len $atlas.skills }} 颗星已点亮</span></div><p>基础、工程与科研相连。相邻技能都点亮后，连线也会发光。</p><div class="atlas-progress-track"><span data-star-progress></span></div></div>
+  <div class="atlas-toolbar"><div class="atlas-filters" role="group" aria-label="筛选技能星群"><button type="button" data-domain-filter="all" aria-pressed="true">全部星群</button>{{ range $atlas.domains }}<button type="button" data-domain-filter="{{ .id }}" aria-pressed="false">{{ .label }} <span data-domain-count="{{ .id }}">0</span></button>{{ end }}</div>
+    <div class="atlas-view-tools"><label class="sr-only" for="skill-search">搜索技能</label><input type="search" id="skill-search" data-skill-search placeholder="寻找一项技能…" autocomplete="off"><div role="group" aria-label="视图"><button type="button" data-atlas-view="map" aria-pressed="true">星图</button><button type="button" data-atlas-view="list" aria-pressed="false">清单</button></div></div>
+  </div>
+  <div class="atlas-hint"><span><i class="legend-star"></i>待探索 <i class="legend-star lit"></i>已点亮 <i class="legend-line"></i>已连通</span><span>点选星星查看详情 · 路径是学习建议，可独立点亮</span></div>
+  <div class="atlas-frame" data-star-map hidden>
+    <div class="atlas-corner-label"><span>YOUR PERSONAL UNIVERSE</span><small>把每一次验证，留在星空里。</small></div>
+    <div class="atlas-map-controls"><button type="button" data-map-zoom="out" aria-label="缩小星图">−</button><button type="button" data-map-zoom="fit">全图</button><button type="button" data-map-zoom="in" aria-label="放大星图">＋</button></div>
+    <div class="atlas-scroll" data-atlas-scroll tabindex="0" role="region" aria-label="技能星图，可横向或纵向滚动探索">
+      <svg class="skill-atlas" data-skill-svg viewBox="0 0 {{ $atlas.width }} {{ $atlas.height }}" xmlns="http://www.w3.org/2000/svg" aria-label="包含42项技能的交互星图" role="group">
+        <defs><radialGradient id="atlas-nebula-pink"><stop stop-color="#b675a5" stop-opacity=".18"/><stop offset="1" stop-color="#b675a5" stop-opacity="0"/></radialGradient><radialGradient id="atlas-nebula-blue"><stop stop-color="#687cbe" stop-opacity=".23"/><stop offset="1" stop-color="#687cbe" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="290" cy="300" rx="440" ry="450" fill="url(#atlas-nebula-pink)"/><ellipse cx="1100" cy="700" rx="500" ry="540" fill="url(#atlas-nebula-blue)"/>
+        <g class="atlas-distant-stars" aria-hidden="true">{{ range seq 1 160 }}<circle cx="{{ mod (add (mul . 137) 23) 1440 }}" cy="{{ mod (add (mul . 233) 17) 1130 }}" r="{{ if eq (mod . 9) 0 }}1.6{{ else }}.8{{ end }}"/>{{ end }}</g>
+        <g class="atlas-paths" aria-hidden="true">{{ range $target := $atlas.skills }}{{ range .deps }}{{ $source := index $nodes . }}{{ $mid := div (add $source.x $target.x) 2 }}<path d="M {{ $source.x }} {{ $source.y }} C {{ $mid }} {{ $source.y }}, {{ $mid }} {{ $target.y }}, {{ $target.x }} {{ $target.y }}" data-edge-from="{{ $source.id }}" data-edge-to="{{ $target.id }}"/>{{ end }}{{ end }}</g>
+        {{ range $atlas.domains }}<g class="star-domain" data-domain-label="{{ .id }}" transform="translate({{ .x }},{{ .y }})" aria-hidden="true"><text>{{ .label }}</text><text y="23" class="domain-subtitle">{{ .subtitle }}</text></g>{{ end }}
+        {{ range $atlas.skills }}<a href="#skill-{{ .id }}" class="star-node" data-skill-node="{{ .id }}" data-domain="{{ .domain }}" aria-label="查看{{ .title }}，未点亮" transform="translate({{ .x }},{{ .y }})"><title>{{ .title }} · {{ .summary }}</title><circle class="star-hit" r="30"/><circle class="star-orbit" r="17"/><circle class="star-glow" r="10"/><path class="star-spark" d="M 0 -10 L 2.5 -2.5 L 10 0 L 2.5 2.5 L 0 10 L -2.5 2.5 L -10 0 L -2.5 -2.5 Z"/><circle class="star-core" r="3.5"/><text y="33" text-anchor="middle">{{ .title }}</text>{{ if .optional }}<text y="52" text-anchor="middle" class="star-optional">可选探索</text>{{ end }}</a>{{ end }}
+      </svg>
+    </div>
+    <p class="atlas-scroll-hint">手机可滑动探索星图，也可切换清单逐项查看。</p>
+  </div>
+  <div class="skill-list" data-skill-list>{{ range $domain := $atlas.domains }}<section data-list-domain="{{ .id }}"><h2>{{ .label }}<span>{{ .subtitle }}</span></h2><div class="skill-list-grid">{{ range $atlas.skills }}{{ if eq .domain $domain.id }}<article class="skill-list-card" data-list-skill="{{ .id }}"><button type="button" data-open-skill="{{ .id }}"><span class="list-star" aria-hidden="true">✦</span><span><strong>{{ .title }}</strong><small data-skill-state="{{ .id }}">待探索{{ if .optional }} · 可选{{ end }}</small></span><span aria-hidden="true">↗</span></button><p>{{ .summary }}</p><noscript><ul>{{ range .criteria }}<li>{{ . }}</li>{{ end }}</ul></noscript></article>{{ end }}{{ end }}</div></section>{{ end }}</div>
+  <p class="filter-empty" data-skill-empty hidden>暂时没有找到这项技能，试试“DDR”“建模”或切换到全部星群。</p>
+  <div class="learning-toolbar atlas-footer"><span>主线 <strong data-main-count>0 / 38</strong> · 可选探索 <strong data-optional-count>0 / 4</strong></span>{{ partial "learning-tools.html" . }}</div>
+  <p class="learning-source-note">求职技能来自《学习初步计划》，科研主线结合58周计划补充。点亮由你自行确认，不会因周任务勾选而自动认定已掌握。</p>
+  <noscript><p>已显示全部技能清单；启用JavaScript后可查看星图、点亮技能并保存进度。</p></noscript>
+  <aside class="skill-inspector" data-skill-inspector hidden role="dialog" aria-labelledby="inspector-title" aria-modal="false"><div class="inspector-top"><span data-inspector-domain></span><button type="button" data-inspector-close aria-label="关闭技能详情">×</button></div><div class="inspector-body"><p class="inspector-state" data-inspector-state></p><h2 id="inspector-title" tabindex="-1"></h2><p data-inspector-summary></p><h3>点亮前，试着完成</h3><ul data-inspector-criteria></ul><div class="inspector-prereqs"><h3>建议先了解</h3><div data-inspector-deps></div></div><div class="inspector-weeks"><h3>对应周计划</h3><div data-inspector-weeks></div></div><label for="skill-evidence">我的学习记录</label><textarea id="skill-evidence" data-skill-note rows="3" placeholder="工程地址、实验记录、遇到的问题…"></textarea></div><div class="inspector-footer"><button type="button" class="light-star-button" data-toggle-star>点亮这颗星</button><p class="inspector-note">独立点亮，按自己的理解确认掌握。</p></div></aside>
+  <script type="application/json" id="learning-plan-data">{{ hugo.Data.learning.plan | jsonify | safeJS }}</script>
+  <script type="application/json" id="learning-skills-data">{{ $atlas | jsonify | safeJS }}</script>
+  <span hidden data-weekly-url="{{ "weekly/" | relURL }}"></span>
+</article>
+{{ end }}

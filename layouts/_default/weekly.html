@@ -1,0 +1,53 @@
+{{ define "main" }}
+{{ $plan := hugo.Data.learning.plan }}
+<article class="weekly-page learning-page" data-weekly-v2>
+  <header class="learning-heading">
+    <div><p class="page-eyebrow">LEARNING JOURNAL · 2026—2027</p><h1>每周计划</h1><p class="page-description">2026.10.19 — 2027.11.28 · 58周，把目标变成每周可验收的成果。</p></div>
+    <a class="learning-link" href="{{ "starfield/" | relURL }}">去点亮技能星图 <span aria-hidden="true">↗</span></a>
+  </header>
+  <div class="plan-metrics"><div><strong>58 <small>周</small></strong><span>从基础到求职</span></div><div><strong>36 <small>小时 / 周</small></strong><span>随考试与任务调配</span></div><div><strong>6 <small>天投入</small></strong><span>每天三个2小时单元</span></div><div><strong>1 <small>天休息</small></strong><span>周日留给生活</span></div></div>
+  <details class="plan-guide"><summary>查看时间分配与执行规则 <span>课程、项目、科研怎么兼顾</span></summary><div class="guide-content prose dark:prose-invert">
+  {{ range $i, $block := $plan.intro }}{{ if gt $i 2 }}
+    {{ if eq $block.type "table" }}<div class="table-scroll" tabindex="0" role="region" aria-label="计划安排表"><table>{{ range $ri, $row := $block.rows }}<tr>{{ range $row }}{{ if eq $ri 0 }}<th>{{ . }}</th>{{ else }}<td>{{ . }}</td>{{ end }}{{ end }}</tr>{{ end }}</table></div>
+    {{ else }}{{ if in (slice 3 7 11 15 18) $i }}<h2>{{ $block.text }}</h2>{{ else }}<p>{{ $block.text }}</p>{{ end }}{{ end }}
+  {{ end }}{{ end }}
+  <p>{{ $plan.reminder }}</p></div></details>
+  <div class="learning-toolbar"><span class="learning-progress-summary" data-total-week-progress>任务完成 0 项</span>{{ partial "learning-tools.html" . }}</div>
+  <div class="weekly-workspace" data-plan-workspace>
+    <nav class="weekly-nav plan-nav" aria-label="58周计划目录">
+      <div class="plan-nav-head"><p class="weekly-nav-label">选择一周 <span>YOUR NEXT STEP</span></p><button type="button" class="small-button" data-current-week>本周</button></div>
+      <label class="sr-only" for="week-search">搜索周次或任务</label><input id="week-search" class="learning-search" type="search" placeholder="搜索周次、任务…" autocomplete="off" data-week-search>
+      <label class="sr-only" for="week-phase">按阶段筛选</label><select id="week-phase" data-week-phase><option value="all">全部阶段 · 58周</option>{{ range $plan.phases }}<option value="{{ .id }}">{{ .label }} · {{ .weeks }}</option>{{ end }}</select>
+      <label class="mobile-week-picker"><span>跳转到一周</span><select data-week-picker aria-label="选择周次">{{ range $plan.weeks }}<option value="{{ .id }}">第{{ .number }}周 · {{ .title }}</option>{{ end }}</select></label>
+      <p class="filter-empty" data-week-empty hidden>没有匹配的周次</p>
+      <div class="weekly-links plan-week-links">{{ range $plan.weeks }}
+        <a href="#{{ .id }}" data-plan-link="{{ .id }}" data-phase="{{ .phase }}" data-search="{{ printf "第%d周 %s %s %s" .number .title .career .research }}"><span class="plan-week-top"><span class="week-link-number">第{{ .number }}周</span><span class="week-check" data-week-check="{{ .id }}"></span></span><span class="plan-week-title">{{ .title }}</span><span class="week-link-date">{{ .start }} — {{ .end }}</span></a>
+      {{ end }}</div>
+      <noscript><style>[data-weekly-v2] .plan-week-links{display:flex;max-height:300px;overflow:auto;flex-direction:column}[data-weekly-v2] .mobile-week-picker{display:none}</style><p>浏览器未启用脚本时，可沿目录顺序阅读全部计划；进度不会自动保存。</p></noscript>
+    </nav>
+    <div class="weekly-panels">
+      {{ range $plan.weeks }}{{ $week := . }}
+      <section class="week-panel plan-panel" id="{{ .id }}" data-plan-panel="{{ .id }}" aria-labelledby="{{ .id }}-title">
+        <div class="plan-panel-top"><span class="week-stage">{{ range $plan.phases }}{{ if eq .id $week.phase }}{{ .label }}{{ end }}{{ end }}</span><span>{{ .start }} — {{ .end }}</span></div>
+        <header class="week-panel-heading"><p class="page-eyebrow">第{{ .number }}周 / 58</p><h2 id="{{ .id }}-title">{{ .title }}</h2></header>
+        <div class="week-hours" aria-label="本周时间分配"><span><i class="dot-career"></i>求职 <strong>{{ .hours.career }}h</strong></span><span><i class="dot-research"></i>课题 <strong>{{ .hours.research }}h</strong></span><span>校内 <strong>{{ .hours.course }}h</strong></span><span>复盘 <strong>{{ .hours.review }}h</strong></span></div>
+        {{ if or (eq .number 3) (eq .number 4) }}<p class="exam-note">考试优先。本周暂停新项目，考前专注复习，考后安排恢复。</p>{{ end }}
+        {{ range $group := (slice (dict "id" "career" "title" "求职与工程" "text" .career) (dict "id" "research" "title" "课题与课程" "text" .research) (dict "id" "acceptance" "title" "本周验收" "text" .acceptance)) }}
+        <div class="week-task-group"><h3><span class="task-group-mark {{ $group.id }}" aria-hidden="true"></span>{{ .title }}</h3>
+          {{ range $i, $task := split .text "；" }}{{ $taskID := printf "%s-%s-%d" $week.id $group.id $i }}
+          <label class="learning-task"><input type="checkbox" data-task-id="{{ $taskID }}" data-task-week="{{ $week.id }}"><span>{{ $task }}</span></label>
+          {{ end }}
+        </div>{{ end }}
+        <div class="week-completion"><span data-week-progress="{{ .id }}">尚未开始</span><progress max="100" value="0" data-week-bar="{{ .id }}" aria-label="第{{ .number }}周任务进度"></progress></div>
+        <details class="week-daily"><summary>每日三个学习单元怎么分配</summary><p>每格约2小时，可按课表与设备安排调整。以下是本周时长配比的一种分配；周日不补欠账。</p><div class="table-scroll" tabindex="0" role="region" aria-label="每日时间分配"><table><thead><tr><th>日期</th><th>单元一</th><th>单元二</th><th>单元三</th></tr></thead><tbody data-daily-for="{{ .id }}"></tbody></table></div><noscript><p>本周配比：求职{{ .hours.career }}h、课题{{ .hours.research }}h、校内{{ .hours.course }}h、复盘{{ .hours.review }}h；周一至周六执行。</p></noscript></details>
+        <div class="related-skill-links"><h3>这一周对应的技能</h3><div>{{ range hugo.Data.learning.skills.skills }}{{ if in .weeks $week.number }}<a href="{{ "starfield/" | relURL }}#skill-{{ .id }}">{{ .title }} <span aria-hidden="true">↗</span></a>{{ end }}{{ end }}</div><p>完成周任务后，可按掌握情况自行点亮星图。</p></div>
+        <label class="week-notes-label" for="notes-{{ .id }}">周记与证据 <span>记录仓库、波形、实验结果与下周调整</span></label><textarea id="notes-{{ .id }}" data-week-note="{{ .id }}" rows="4" placeholder="本周完成了什么？哪些结果可以复现？还剩什么问题？"></textarea>
+        <footer class="week-pagination"><button type="button" data-prev-week="{{ .number }}">← 上一周</button><button type="button" data-next-week="{{ .number }}">下一周 →</button></footer>
+      </section>{{ end }}
+    </div>
+  </div>
+  <p class="learning-source-note">计划依据你提供的58周学习文档。考试、竞赛与招聘日期以实际通知为准；课题安排随导师与设备条件调整。</p>
+  <script type="application/json" id="learning-skills-data">{{ hugo.Data.learning.skills | jsonify | safeJS }}</script>
+  <script type="application/json" id="learning-plan-data">{{ $plan | jsonify | safeJS }}</script>
+</article>
+{{ end }}

@@ -1,0 +1,9 @@
+{{ $id := printf "week-%d" (add .Ordinal 1) }}
+{{ $title := .Get "title" }}
+{{ $label := replaceRE "^.*?(第[0-9]+周).*$" "$1" $title }}
+{{ $date := replaceRE "^.*?（(.*)）.*$" "$1" $title }}
+{{ .Parent.Scratch.Add "weeks" (slice (dict "id" $id "label" $label "date" $date)) }}
+<section class="week-panel" id="{{ $id }}" data-week-panel aria-labelledby="{{ $id }}-title">
+  <div class="week-panel-heading"><p class="page-eyebrow">每周，向前一点</p><h2 id="{{ $id }}-title">{{ $title }}</h2></div>
+  {{ .Inner | markdownify }}
+</section>

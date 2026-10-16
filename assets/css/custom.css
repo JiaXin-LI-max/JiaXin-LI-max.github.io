@@ -1,102 +1,132 @@
-/* ===== 1. 全局字体：霞鹜文楷（由 extend-head.html 加载）===== */
-body, h1, h2, h3, h4, h5, h6 {
-    font-family: "LXGW WenKai Screen", ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif !important;
+/* Site customisations. Theme files stay untouched. */
+:root {
+  --petal-ink: #393348; --petal-muted: #786b80; --petal-accent: #ac527d;
+  --petal-line: rgba(157,112,144,.2); --petal-glass: rgba(255,255,255,.69);
+  --petal-shadow: 0 16px 55px rgba(111,72,112,.075);
+  --color-primary-100: 252,233,243; --color-primary-200: 247,210,229;
+  --color-primary-400: 209,128,169; --color-primary-500: 182,91,138; --color-primary-600: 159,66,112;
 }
-/* 代码块保持等宽字体，不受影响 */
-
-/* ===== 2. 动态背景：底层流动极光 + 上层漂移光斑 ===== */
+html.dark {
+  --petal-ink: #eae4f2; --petal-muted: #b1a5c2; --petal-accent: #e7a6c8;
+  --petal-line: rgba(183,157,218,.2); --petal-glass: rgba(28,29,53,.79);
+  --petal-shadow: 0 18px 60px rgba(3,5,19,.22);
+}
+body, h1, h2, h3, h4, h5, h6, button, input {
+  font-family: "LXGW WenKai Screen", ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+code, pre, kbd, samp { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+html { scroll-padding-top: 104px; }
 html body {
-    background: #eef2f7 !important;
+  position: relative; isolation: isolate; min-height: 100dvh; height: auto;
+  max-width: 1400px; padding-inline: clamp(20px,4vw,64px);
+  background: #faf4f8 !important; color: var(--petal-ink);
 }
-
-html.dark body {
-    background: #0b1120 !important;
+html.dark body { background: #111426 !important; }
+body::before, body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -2;
 }
-
 body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background-image: linear-gradient(-45deg, #e3ecfb, #fbe9f3, #e2f6f4, #ecebfa);
-    background-size: 400% 400%;
-    animation: aurora 40s ease-in-out infinite;
+  background: radial-gradient(ellipse at 12% 18%,#f6dfea 0,transparent 52%),radial-gradient(ellipse at 88% 22%,#e3e5fa 0,transparent 50%),radial-gradient(ellipse at 56% 92%,#dfedf9 0,transparent 56%),#faf5f9;
 }
-
-html.dark body::before {
-    background-image: linear-gradient(-45deg, #0b1120, #16255a, #0b2b3d, #251f52);
-}
-
-@keyframes aurora {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image: radial-gradient(520px 380px at 12% 18%, rgba(139, 92, 246, 0.10), transparent 70%), radial-gradient(640px 460px at 88% 78%, rgba(14, 165, 233, 0.10), transparent 70%);
-    animation: drift 26s ease-in-out infinite alternate;
+  z-index: -1; opacity: .6;
+  background: radial-gradient(ellipse at 70% 42%,rgba(245,211,234,.65),transparent 58%),radial-gradient(ellipse at 20% 85%,rgba(216,216,249,.6),transparent 55%);
+  animation: petal-drift 32s ease-in-out infinite alternate;
 }
-
-html.dark body::after {
-    background-image: radial-gradient(520px 380px at 12% 18%, rgba(139, 92, 246, 0.16), transparent 70%), radial-gradient(640px 460px at 88% 78%, rgba(14, 165, 233, 0.16), transparent 70%);
+html.dark body::before {
+  background: radial-gradient(ellipse at 9% 16%,#292243 0,transparent 56%),radial-gradient(ellipse at 94% 55%,#192d49 0,transparent 56%),radial-gradient(ellipse at 45% 100%,#30213e 0,transparent 55%),#101426;
 }
-
-@keyframes drift {
-    from {
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    to {
-        transform: translate3d(46px, -34px, 0) scale(1.07);
-    }
+html.dark body::after { background: radial-gradient(ellipse at 70% 26%,rgba(115,92,171,.2),transparent 55%),radial-gradient(ellipse at 22% 80%,rgba(76,113,166,.18),transparent 60%); }
+#petal-particles { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+@keyframes petal-drift { to { transform: translate3d(0,-2%,0) scale(1.06); opacity: .9; } }
+.site-header-spacer { height: 94px; }
+.site-nav-shell { max-width: 1400px; padding-inline: clamp(20px,4vw,64px); }
+#menu-blur { box-shadow: 0 4px 24px rgba(116,73,109,.07); }
+.reading-page, .weekly-page { padding-top: 12px; padding-bottom: 32px; }
+.reading-header { max-width: 960px; margin: 0 auto 30px; }
+#single_header h1, .weekly-header h1 { margin: 0; font-size: clamp(2rem,3.4vw,3rem); line-height: 1.3; letter-spacing: -.035em; color: var(--petal-ink); }
+.reading-layout { max-width: 960px; margin-inline: auto; font-size: 1.125rem; line-height: 1.95; }
+.reading-layout:has(.reading-toc) { display: grid; grid-template-columns: 215px minmax(0,1fr); gap: 38px; max-width: none; }
+.reading-content, .article-content { min-width: 0; width: 100%; max-width: none; }
+.reading-toc { min-width: 0; font-size: .92rem; }
+.reading-toc > .toc { top: 110px; max-height: calc(100dvh - 140px); overflow-y: auto; padding: 14px 12px; border-left: 2px solid var(--petal-line); }
+.reading-footer { max-width: 960px; margin-inline: auto; }
+.article-content > :first-child { margin-top: 0; }
+.article-content img { max-width: 100%; height: auto; border-radius: 12px; }
+.article-content pre { max-width: 100%; overflow-x: auto; }
+.article-content table, .week-panel table { display: block; width: 100%; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.article-content th, .article-content td, .week-panel th, .week-panel td { padding: .85rem 1rem; border-bottom: 1px solid var(--petal-line); }
+.weekly-header { margin: 0 0 34px; }
+.page-eyebrow { margin: 0 0 12px; color: var(--petal-accent); font-size: .84rem; letter-spacing: .14em; }
+.page-description { margin: 14px 0 0; font-size: 1rem; color: var(--petal-muted); }
+.weekly-workspace { display: grid; grid-template-columns: 235px minmax(0,1fr); gap: 30px; align-items: start; }
+.weekly-nav { position: sticky; top: 110px; padding: 23px 14px 16px; border: 1px solid var(--petal-line); border-radius: 22px; background: var(--petal-glass); box-shadow: var(--petal-shadow); backdrop-filter: blur(16px); }
+.weekly-nav-label { padding: 0 12px; margin: 0 0 20px; font-size: .95rem; color: var(--petal-ink); }
+.weekly-nav-label span { display: block; margin-top: 4px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .6rem; letter-spacing: .2em; color: var(--petal-muted); }
+.weekly-links { display: flex; flex-direction: column; gap: 8px; }
+.weekly-links a { display: flex; flex-direction: column; gap: 4px; min-height: 64px; padding: 12px 16px; border: 1px solid transparent; border-radius: 13px; color: var(--petal-muted); text-decoration: none; transition: background .2s,color .2s; }
+.weekly-links a:hover { background: rgba(198,132,171,.09); color: var(--petal-accent); }
+.weekly-links a[aria-current="true"] { color: var(--petal-accent); background: linear-gradient(115deg,rgba(224,165,197,.23),rgba(193,190,237,.18)); border-color: var(--petal-line); }
+.week-link-number { font-size: 1.1rem; font-weight: 700; }
+.week-link-date { font-size: .8rem; letter-spacing: .02em; }
+.weekly-panels { min-width: 0; max-width: none; margin: 0; font-size: 1.125rem; line-height: 1.95; color: var(--petal-ink); }
+.week-panel { min-width: 0; padding: clamp(24px,3vw,44px); margin: 0 0 24px; border: 1px solid var(--petal-line); border-radius: 24px; background: var(--petal-glass); box-shadow: var(--petal-shadow); backdrop-filter: blur(16px); scroll-margin-top: 110px; }
+.week-panel[hidden] { display: none; }
+.week-panel-heading { padding-bottom: 23px; margin-bottom: 26px; border-bottom: 1px solid var(--petal-line); }
+.week-panel-heading .page-eyebrow { margin: 0 0 10px; }
+.week-panel-heading h2 { margin: 0; font-size: clamp(1.35rem,2vw,1.8rem); line-height: 1.5; color: var(--petal-ink); }
+.week-panel strong { color: var(--petal-ink); }
+.week-panel > p:has(> strong:only-child) { margin-top: 28px; }
+.week-panel th { background: rgba(195,150,188,.09); color: var(--petal-ink); text-align: left; }
+.week-panel td:first-child { min-width: 90px; }
+.week-panel td:nth-child(2) { min-width: 210px; }
+.week-panel li { overflow-wrap: anywhere; }
+.week-panel input[type="checkbox"] { accent-color: var(--petal-accent); }
+.weekly-links a:focus-visible { outline: 2px solid var(--petal-accent); outline-offset: 3px; }
+main .grid article { border: 1px solid var(--petal-line); background: var(--petal-glass); backdrop-filter: blur(12px); box-shadow: var(--petal-shadow); transition: transform .25s,box-shadow .25s; }
+@media (hover:hover) { main .grid article:hover { transform: translateY(-4px); box-shadow: 0 20px 45px rgba(115,74,113,.14); } }
+main img[src*="avatar"] { border-radius: 9999px; box-shadow: 0 0 0 5px rgba(237,204,226,.55),0 12px 32px rgba(99,72,110,.14); }
+@media (min-width: 901px) { .reading-page:has(.reading-toc) .reading-header { max-width: none; padding-left: 253px; } .reading-page:has(.reading-toc) .reading-footer { max-width:none; margin-left:253px; } }
+@media (max-width: 900px) {
+  .weekly-workspace { grid-template-columns: 190px minmax(0,1fr); gap: 20px; }
+  .reading-layout:has(.reading-toc) { display: block; }
+  .reading-toc { margin-bottom: 26px; }
+  .reading-toc > .toc { position: static; max-height: 250px; }
 }
-
-/* 访客系统开了「减少动态效果」就自动停，照顾晕动症用户 */
+@media (max-width: 640px) {
+  html { scroll-padding-top: 90px; }
+  html body, .site-nav-shell { padding-inline: 20px; }
+  .site-header-spacer { height: 82px; }
+  .reading-page, .weekly-page { padding-top: 8px; }
+  .reading-header, .weekly-header { margin-bottom: 24px; }
+  .weekly-workspace { display: block; }
+  .weekly-nav { position: relative; top: auto; padding: 12px; margin-bottom: 18px; border-radius: 17px; }
+  .weekly-nav-label { margin-bottom: 10px; padding-inline: 4px; font-size: .8rem; }
+  .weekly-nav-label span { display: inline; margin-left: 8px; font-size: .55rem; }
+  .weekly-links { flex-direction: row; overflow-x: auto; gap: 7px; padding: 3px 3px 8px; scrollbar-width: thin; }
+  .weekly-links a { flex: 0 0 126px; min-height: 64px; padding: 10px 12px; }
+  .week-link-number { font-size: 1rem; }
+  .week-link-date { font-size: .73rem; }
+  .week-panel { padding: 24px 20px; border-radius: 18px; scroll-margin-top: 94px; }
+  .week-panel-heading { padding-bottom: 18px; margin-bottom: 20px; }
+  .reading-layout, .weekly-panels { font-size: 1.0625rem; line-height: 1.9; }
+  .page-description { font-size: .92rem; }
+}
 @media (prefers-reduced-motion: reduce) {
-    body::before, body::after {
-        animation: none !important;
-    }
+  html { scroll-behavior: auto !important; }
+  body::after { animation: none; }
+  #petal-particles { display: none; }
+  main .grid article, .weekly-links a { transition: none; }
+  main .grid article:hover { transform: none; }
+}
+@media print {
+  body::before,body::after,#petal-particles { display:none !important; }
+  .weekly-workspace,.reading-layout:has(.reading-toc) { display:block; }
+  .weekly-nav,.reading-toc { display:none; }
+  .week-panel[hidden] { display:block !important; }
+  .week-panel { box-shadow:none; background:transparent; break-inside:avoid; }
 }
 
-/* ===== 3. 头像光圈 + 悬停微放大 ===== */
-main img[src*="avatar"] {
-    border-radius: 9999px;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 10px 32px rgba(31, 41, 55, 0.18);
-    transition: transform 0.3s ease;
-}
-
-    main img[src*="avatar"]:hover {
-        transform: scale(1.05);
-    }
-
-html.dark main img[src*="avatar"] {
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14), 0 10px 32px rgba(0, 0, 0, 0.5);
-}
-
-/* ===== 4. 卡片悬停轻轻上浮 ===== */
-main .grid article {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-    main .grid article:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(31, 41, 55, 0.12);
-    }
-
-html.dark main .grid article:hover {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-}
+.table-scroll { max-width:100%; overflow-x:auto; margin-block:1.5em; border-radius:10px; }
+.table-scroll table { display:table; width:100%; margin:0; }
+.table-scroll:focus-visible { outline:2px solid var(--petal-accent); outline-offset:3px; }

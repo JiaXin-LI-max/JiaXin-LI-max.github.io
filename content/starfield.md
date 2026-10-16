@@ -1,5 +1,5 @@
 ---
-title: "计划星图"
+title: "我的技能星图"
 layout: "starfield"
+draft: false
 ---
-星图页面建设中 🌌

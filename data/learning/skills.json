@@ -1,0 +1,937 @@
+{
+  "version": 1,
+  "domains": [
+    {
+      "id": "foundation",
+      "label": "基础星群",
+      "subtitle": "电路 · RTL · 软件基础",
+      "x": 45,
+      "y": 60
+    },
+    {
+      "id": "project",
+      "label": "主项目星群",
+      "subtitle": "采集 → 滤波 → 缓存 → 传输",
+      "x": 565,
+      "y": 60
+    },
+    {
+      "id": "research",
+      "label": "科研星群",
+      "subtitle": "建模 → 分离 → 补偿 → 标定",
+      "x": 1050,
+      "y": 60
+    },
+    {
+      "id": "engineering",
+      "label": "工程能力",
+      "subtitle": "约束 · 调试 · 可复现",
+      "x": 45,
+      "y": 630
+    },
+    {
+      "id": "extension",
+      "label": "可选探索",
+      "subtitle": "先做好主线，再向外拓展",
+      "x": 565,
+      "y": 915
+    }
+  ],
+  "width": 1440,
+  "height": 1130,
+  "skills": [
+    {
+      "id": "digital",
+      "title": "数字电路",
+      "domain": "foundation",
+      "x": 100,
+      "y": 125,
+      "summary": "从组合逻辑、时序逻辑到状态机，建立读懂和实现RTL的基础。",
+      "criteria": [
+        "完成组合与时序逻辑小练习",
+        "能解释寄存器、时钟与复位的作用"
+      ],
+      "deps": [],
+      "weeks": [
+        1,
+        2,
+        5
+      ],
+      "optional": false
+    },
+    {
+      "id": "verilog",
+      "title": "Verilog",
+      "domain": "foundation",
+      "x": 265,
+      "y": 180,
+      "summary": "把电路意图写成可综合的RTL，并用仿真检查行为。",
+      "criteria": [
+        "独立编写计数器与简单模块",
+        "覆盖位宽、赋值与边界情况"
+      ],
+      "deps": [
+        "digital"
+      ],
+      "weeks": [
+        2,
+        5,
+        7
+      ],
+      "optional": false
+    },
+    {
+      "id": "fsm",
+      "title": "状态机设计",
+      "domain": "foundation",
+      "x": 415,
+      "y": 270,
+      "summary": "用清晰的状态、转移条件与输出组织控制逻辑。",
+      "criteria": [
+        "完成消抖或序列检测器",
+        "复位和边界测试通过"
+      ],
+      "deps": [
+        "verilog"
+      ],
+      "weeks": [
+        5,
+        7
+      ],
+      "optional": false
+    },
+    {
+      "id": "c",
+      "title": "C语言",
+      "domain": "foundation",
+      "x": 90,
+      "y": 315,
+      "summary": "同步学习数组、指针、结构体和文件操作，服务主机端数据处理。",
+      "criteria": [
+        "完成指针与结构体练习",
+        "能够读写并校验测试数据文件"
+      ],
+      "deps": [],
+      "weeks": [
+        2,
+        7,
+        9,
+        32,
+        42
+      ],
+      "optional": false
+    },
+    {
+      "id": "linux",
+      "title": "Linux基础",
+      "domain": "foundation",
+      "x": 260,
+      "y": 375,
+      "summary": "建立编译、运行和排查程序问题的基本操作能力。",
+      "criteria": [
+        "能独立编译运行C程序",
+        "能管理工程文件与记录运行环境"
+      ],
+      "deps": [
+        "c"
+      ],
+      "weeks": [
+        6,
+        8
+      ],
+      "optional": false
+    },
+    {
+      "id": "vivado",
+      "title": "Vivado全流程",
+      "domain": "foundation",
+      "x": 420,
+      "y": 125,
+      "summary": "先选定Xilinx（AMD）/Vivado主平台，跑通工程、仿真、综合、实现和下载。",
+      "criteria": [
+        "有可复现的工程步骤",
+        "有条件时完成LED上板"
+      ],
+      "deps": [
+        "verilog"
+      ],
+      "weeks": [
+        1,
+        6,
+        15
+      ],
+      "optional": false
+    },
+    {
+      "id": "uart",
+      "title": "UART收发",
+      "domain": "foundation",
+      "x": 100,
+      "y": 470,
+      "summary": "从发送、接收到联调，练习接口设计和验证。",
+      "criteria": [
+        "收发testbench通过",
+        "有板卡时验证真实串口通信"
+      ],
+      "deps": [
+        "fsm",
+        "vivado"
+      ],
+      "weeks": [
+        8,
+        9
+      ],
+      "optional": false
+    },
+    {
+      "id": "fifo",
+      "title": "FIFO与握手",
+      "domain": "foundation",
+      "x": 285,
+      "y": 510,
+      "summary": "理解队列、空满、握手和背压，为数据链路打底。",
+      "criteria": [
+        "空满、复位和连续读写测试通过",
+        "能说明数据顺序与边界处理"
+      ],
+      "deps": [
+        "verilog"
+      ],
+      "weeks": [
+        12,
+        22
+      ],
+      "optional": false
+    },
+    {
+      "id": "cdc",
+      "title": "CDC与异步FIFO",
+      "domain": "foundation",
+      "x": 430,
+      "y": 440,
+      "summary": "识别跨时钟域问题并验证对应的数据传递方案。",
+      "criteria": [
+        "完成异步FIFO仿真",
+        "整理CDC检查表"
+      ],
+      "deps": [
+        "fifo"
+      ],
+      "weeks": [
+        13,
+        39
+      ],
+      "optional": false
+    },
+    {
+      "id": "sv",
+      "title": "SystemVerilog验证",
+      "domain": "foundation",
+      "x": 435,
+      "y": 570,
+      "summary": "给已有模块增加自检、常用断言和可重复测试，不以完整UVM为必做项。",
+      "criteria": [
+        "UART或FIFO有自动检查",
+        "能复现并定位一个失败测试"
+      ],
+      "deps": [
+        "uart",
+        "fifo"
+      ],
+      "weeks": [
+        14
+      ],
+      "optional": false
+    },
+    {
+      "id": "sampling",
+      "title": "采样与定点数",
+      "domain": "project",
+      "x": 600,
+      "y": 125,
+      "summary": "理解采样、量化和定点表示，为采集滤波建立参考。",
+      "criteria": [
+        "用软件生成可检查的测试信号",
+        "写清量化和位宽约定"
+      ],
+      "deps": [
+        "digital",
+        "c"
+      ],
+      "weeks": [
+        16,
+        18
+      ],
+      "optional": false
+    },
+    {
+      "id": "adc",
+      "title": "ADC接口",
+      "domain": "project",
+      "x": 790,
+      "y": 190,
+      "summary": "阅读实际器件资料，验证数据采集接口；硬件不足时先用测试源。",
+      "criteria": [
+        "有接口时序与资源核对表",
+        "区分测试源结果和真实采集结果"
+      ],
+      "deps": [
+        "sampling",
+        "vivado"
+      ],
+      "weeks": [
+        17,
+        21
+      ],
+      "optional": false
+    },
+    {
+      "id": "fir",
+      "title": "FIR滤波",
+      "domain": "project",
+      "x": 600,
+      "y": 305,
+      "summary": "建立软件参考，再对照实现硬件滤波。",
+      "criteria": [
+        "冲激、阶跃和随机输入逐点对比",
+        "记录误差与位宽"
+      ],
+      "deps": [
+        "sampling",
+        "verilog"
+      ],
+      "weeks": [
+        18,
+        19
+      ],
+      "optional": false
+    },
+    {
+      "id": "pipeline",
+      "title": "流水线与数值精度",
+      "domain": "project",
+      "x": 800,
+      "y": 365,
+      "summary": "比较资源、延迟与数值误差，处理位宽增长、舍入和饱和。",
+      "criteria": [
+        "记录优化前后延迟与资源",
+        "有量化误差对比"
+      ],
+      "deps": [
+        "fir"
+      ],
+      "weeks": [
+        20
+      ],
+      "optional": false
+    },
+    {
+      "id": "ddr",
+      "title": "DDR控制器与PHY",
+      "domain": "project",
+      "x": 620,
+      "y": 490,
+      "summary": "掌握DDR模块的基本分工，先独立读写校验，再接入系统。",
+      "criteria": [
+        "参考工程读写校验通过",
+        "记录初始化与校准状态"
+      ],
+      "deps": [
+        "fifo",
+        "vivado"
+      ],
+      "weeks": [
+        25,
+        26,
+        28
+      ],
+      "optional": false
+    },
+    {
+      "id": "bank",
+      "title": "IO与Bank规划",
+      "domain": "project",
+      "x": 825,
+      "y": 535,
+      "summary": "结合具体板卡、原理图与官方规则核对引脚、Bank、电压和时钟资源。",
+      "criteria": [
+        "完成实际板卡的资源核对表",
+        "能解释采用的引脚和接口约束依据"
+      ],
+      "deps": [
+        "ddr"
+      ],
+      "weeks": [
+        25,
+        27
+      ],
+      "optional": false
+    },
+    {
+      "id": "xdc",
+      "title": "XDC约束",
+      "domain": "project",
+      "x": 945,
+      "y": 435,
+      "summary": "理解IP约束与用户约束的边界，依据具体器件要求核对工程。",
+      "criteria": [
+        "说明关键约束的来源",
+        "验证适用的用户约束与时序结果"
+      ],
+      "deps": [
+        "bank",
+        "timing"
+      ],
+      "weeks": [
+        27
+      ],
+      "optional": false
+    },
+    {
+      "id": "pcie",
+      "title": "PCIe工作流程",
+      "domain": "project",
+      "x": 610,
+      "y": 665,
+      "summary": "把分层、枚举、配置空间、BAR与主机访问连成完整流程。",
+      "criteria": [
+        "画出主机访问设备的流程",
+        "能够解释与DMA的关系"
+      ],
+      "deps": [
+        "digital"
+      ],
+      "weeks": [
+        30,
+        41
+      ],
+      "optional": false
+    },
+    {
+      "id": "xdma",
+      "title": "XDMA与DMA机制",
+      "domain": "project",
+      "x": 800,
+      "y": 715,
+      "summary": "在参考设计上验证传输，再理解TLP、描述符和中断等环节。",
+      "criteria": [
+        "已知模式传输可复现",
+        "记录DMA流程与驱动接口"
+      ],
+      "deps": [
+        "pcie",
+        "ddr"
+      ],
+      "weeks": [
+        31,
+        32,
+        33
+      ],
+      "optional": false
+    },
+    {
+      "id": "host",
+      "title": "C主机程序",
+      "domain": "project",
+      "x": 620,
+      "y": 830,
+      "summary": "基于现有驱动接口完成读写、校验和异常处理。",
+      "criteria": [
+        "程序能校验端到端数据",
+        "说明缓冲区、文件与错误处理"
+      ],
+      "deps": [
+        "c",
+        "linux",
+        "xdma"
+      ],
+      "weeks": [
+        32,
+        42
+      ],
+      "optional": false
+    },
+    {
+      "id": "chain",
+      "title": "采集到主机全链路",
+      "domain": "project",
+      "x": 920,
+      "y": 835,
+      "summary": "把ADC或测试源、FIR、DDR、PCIe和主机串起来，形成可复现主项目。",
+      "criteria": [
+        "端到端数据校验通过",
+        "有真实环境、性能与稳定性记录",
+        "清楚区分实测、仿真和待验证项"
+      ],
+      "deps": [
+        "adc",
+        "pipeline",
+        "ddr",
+        "xdma",
+        "host"
+      ],
+      "weeks": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "optional": false
+    },
+    {
+      "id": "timing",
+      "title": "时序分析与收敛",
+      "domain": "engineering",
+      "x": 95,
+      "y": 700,
+      "summary": "读报告、定位关键路径，理解建立与保持时间并验证修改结果。",
+      "criteria": [
+        "记录一次时序问题的定位与修复",
+        "能够说明修改依据"
+      ],
+      "deps": [
+        "vivado"
+      ],
+      "weeks": [
+        10,
+        27,
+        35,
+        39
+      ],
+      "optional": false
+    },
+    {
+      "id": "ila",
+      "title": "ILA在线调试",
+      "domain": "engineering",
+      "x": 280,
+      "y": 735,
+      "summary": "有板卡时抓取真实波形，把现象、假设、观测与修复串起来。",
+      "criteria": [
+        "保存一次真实ILA抓取记录",
+        "能说明波形如何支持定位结论"
+      ],
+      "deps": [
+        "vivado",
+        "uart"
+      ],
+      "weeks": [
+        23,
+        35
+      ],
+      "optional": false
+    },
+    {
+      "id": "debug",
+      "title": "故障定位能力",
+      "domain": "engineering",
+      "x": 430,
+      "y": 805,
+      "summary": "把每个模块的问题记录沉淀成可解释、可复现的调试案例。",
+      "criteria": [
+        "整理至少一个完整案例",
+        "明确如何复现、定位和回归验证"
+      ],
+      "deps": [
+        "sv",
+        "timing"
+      ],
+      "weeks": [
+        23,
+        35,
+        41
+      ],
+      "optional": false
+    },
+    {
+      "id": "git",
+      "title": "Git持续积累",
+      "domain": "engineering",
+      "x": 95,
+      "y": 870,
+      "summary": "从现在开始管理代码和资料版本，每周留下可追溯的工作记录。",
+      "criteria": [
+        "代码和说明按周归档",
+        "能定位可运行版本与修改记录"
+      ],
+      "deps": [],
+      "weeks": [
+        1,
+        6,
+        11,
+        36
+      ],
+      "optional": false
+    },
+    {
+      "id": "portfolio",
+      "title": "作品集与技术表达",
+      "domain": "engineering",
+      "x": 285,
+      "y": 965,
+      "summary": "把验证过的结果、个人贡献与工程过程整理给别人复现和理解。",
+      "criteria": [
+        "项目README完整",
+        "能做5分钟概述和深入讲解",
+        "公开范围经确认"
+      ],
+      "deps": [
+        "git",
+        "chain",
+        "debug"
+      ],
+      "weeks": [
+        36,
+        37,
+        41,
+        43,
+        45
+      ],
+      "optional": false
+    },
+    {
+      "id": "interview",
+      "title": "笔试与技术问答",
+      "domain": "engineering",
+      "x": 450,
+      "y": 1025,
+      "summary": "围绕时序、CDC、FIFO、RTL手写和项目追问做针对性训练。",
+      "criteria": [
+        "完成一次模拟面试并复盘",
+        "对薄弱项有验证或推导记录"
+      ],
+      "deps": [
+        "cdc",
+        "fsm",
+        "timing"
+      ],
+      "weeks": [
+        39,
+        40,
+        47,
+        49,
+        51
+      ],
+      "optional": false
+    },
+    {
+      "id": "literature",
+      "title": "文献与问题梳理",
+      "domain": "research",
+      "x": 1090,
+      "y": 125,
+      "summary": "梳理课题目标、已有工作和缺口，建立误差建模与标定文献表。",
+      "criteria": [
+        "文献有分类和研究问题",
+        "与导师确认近期研究任务"
+      ],
+      "deps": [],
+      "weeks": [
+        1,
+        6,
+        12
+      ],
+      "optional": false
+    },
+    {
+      "id": "coordinates",
+      "title": "坐标系与量纲",
+      "domain": "research",
+      "x": 1285,
+      "y": 215,
+      "summary": "统一课题坐标、符号、单位和模型的输入输出。",
+      "criteria": [
+        "坐标系和符号表清晰",
+        "检查单位、边界与假设"
+      ],
+      "deps": [
+        "literature"
+      ],
+      "weeks": [
+        7,
+        17,
+        19
+      ],
+      "optional": false
+    },
+    {
+      "id": "geometry",
+      "title": "几何误差机理",
+      "domain": "research",
+      "x": 1090,
+      "y": 305,
+      "summary": "梳理面形、垂直度、安装与运动误差及其对观测的影响。",
+      "criteria": [
+        "完成误差来源示意图",
+        "推导一个单项误差的影响"
+      ],
+      "deps": [
+        "coordinates"
+      ],
+      "weeks": [
+        5,
+        8,
+        9,
+        10
+      ],
+      "optional": false
+    },
+    {
+      "id": "numerics",
+      "title": "数值模型实现",
+      "domain": "research",
+      "x": 1290,
+      "y": 405,
+      "summary": "用熟悉的数值工具把模型变成可运行程序。",
+      "criteria": [
+        "可重复运行模型",
+        "记录参数与边界检查"
+      ],
+      "deps": [
+        "coordinates",
+        "c"
+      ],
+      "weeks": [
+        14,
+        18
+      ],
+      "optional": false
+    },
+    {
+      "id": "model",
+      "title": "多源误差建模",
+      "domain": "research",
+      "x": 1090,
+      "y": 490,
+      "summary": "把单项误差逐步组合，分析耦合关系与模型适用范围。",
+      "criteria": [
+        "形成可说明假设的模型版本",
+        "完成参数扫描与耦合分析"
+      ],
+      "deps": [
+        "geometry",
+        "numerics"
+      ],
+      "weeks": [
+        13,
+        19,
+        20,
+        21
+      ],
+      "optional": false
+    },
+    {
+      "id": "identify",
+      "title": "误差分离与辨识",
+      "domain": "research",
+      "x": 1290,
+      "y": 580,
+      "summary": "用已知真值的合成数据先检查参数能否恢复，再考虑实际观测。",
+      "criteria": [
+        "明确观测量与待辨识参数",
+        "记录真值、估计值与偏差"
+      ],
+      "deps": [
+        "model"
+      ],
+      "weeks": [
+        22,
+        23,
+        25,
+        26
+      ],
+      "optional": false
+    },
+    {
+      "id": "noise",
+      "title": "噪声与不确定度",
+      "domain": "research",
+      "x": 1080,
+      "y": 675,
+      "summary": "分析噪声影响、参数稳定性和结果的不确定性。",
+      "criteria": [
+        "有噪声敏感性结果",
+        "说明误差来源与结论边界"
+      ],
+      "deps": [
+        "identify"
+      ],
+      "weeks": [
+        27,
+        33,
+        44
+      ],
+      "optional": false
+    },
+    {
+      "id": "compensation",
+      "title": "面形与误差补偿",
+      "domain": "research",
+      "x": 1290,
+      "y": 765,
+      "summary": "对照补偿前后的误差，用相同条件检查效果。",
+      "criteria": [
+        "有补偿前后对照图",
+        "记录条件、指标和局限"
+      ],
+      "deps": [
+        "identify",
+        "noise"
+      ],
+      "weeks": [
+        28,
+        40
+      ],
+      "optional": false
+    },
+    {
+      "id": "calibration",
+      "title": "标定实验",
+      "domain": "research",
+      "x": 1090,
+      "y": 845,
+      "summary": "核实自准直仪、五棱镜等设备，制定步骤与数据记录规范。",
+      "criteria": [
+        "实验方案与设备清单完整",
+        "有原始数据和可复现处理步骤"
+      ],
+      "deps": [
+        "model"
+      ],
+      "weeks": [
+        29,
+        30,
+        31,
+        33
+      ],
+      "optional": false
+    },
+    {
+      "id": "repeatability",
+      "title": "重复性与验证",
+      "domain": "research",
+      "x": 1300,
+      "y": 950,
+      "summary": "做必要的重复实验、对照与二轮验证，核对模型与实测偏差。",
+      "criteria": [
+        "记录重复性与偏差原因",
+        "区分已验证结果和研究目标"
+      ],
+      "deps": [
+        "calibration",
+        "compensation"
+      ],
+      "weeks": [
+        35,
+        38,
+        39,
+        49
+      ],
+      "optional": false
+    },
+    {
+      "id": "writing",
+      "title": "研究报告与表达",
+      "domain": "research",
+      "x": 1100,
+      "y": 1040,
+      "summary": "把模型、分离、实验及其局限整理成阶段报告与论文材料。",
+      "criteria": [
+        "数据、单位和图表一致",
+        "能解释本人工作和结论适用条件"
+      ],
+      "deps": [
+        "repeatability"
+      ],
+      "weeks": [
+        36,
+        37,
+        41,
+        47,
+        51,
+        53
+      ],
+      "optional": false
+    },
+    {
+      "id": "domestic",
+      "title": "国产FPGA体验",
+      "domain": "extension",
+      "x": 600,
+      "y": 975,
+      "summary": "选一款能借到的国产平台完成工具链、LED与UART体验。可比较高云、紫光同创、安路、复旦微；Intel（Altera）等其他平台留待主平台熟练后再拓展。",
+      "criteria": [
+        "保存平台与工程步骤",
+        "完成基础演示，条件不足时优先主平台"
+      ],
+      "deps": [
+        "vivado",
+        "uart"
+      ],
+      "weeks": [
+        15
+      ],
+      "optional": true
+    },
+    {
+      "id": "si",
+      "title": "SI与眼图入门",
+      "domain": "extension",
+      "x": 785,
+      "y": 1015,
+      "summary": "主项目稳定、时间允许时，再用可用的ANSYS Student等工具做一次SI与眼图入门实验。",
+      "criteria": [
+        "记录工具、设置与眼图",
+        "说明实验条件和学到的问题"
+      ],
+      "deps": [
+        "bank",
+        "timing"
+      ],
+      "weeks": [
+        44
+      ],
+      "optional": true
+    },
+    {
+      "id": "udp",
+      "title": "RGMII与UDP",
+      "domain": "extension",
+      "x": 925,
+      "y": 965,
+      "summary": "仅作为时间充裕时的副项目，不挤占主项目和科研。",
+      "criteria": [
+        "有接口与测试方案",
+        "完成可复现的小型链路验证"
+      ],
+      "deps": [
+        "fifo",
+        "debug"
+      ],
+      "weeks": [
+        44
+      ],
+      "optional": true
+    },
+    {
+      "id": "competition",
+      "title": "FPGA竞赛训练",
+      "domain": "extension",
+      "x": 640,
+      "y": 1070,
+      "summary": "蓝桥杯等训练按实际通知与个人精力安排。",
+      "criteria": [
+        "以实际赛题完成练习",
+        "记录实现、验证和复盘"
+      ],
+      "deps": [
+        "verilog",
+        "fsm"
+      ],
+      "weeks": [
+        24
+      ],
+      "optional": true
+    }
+  ]
+}

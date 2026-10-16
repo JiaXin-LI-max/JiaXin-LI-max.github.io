@@ -1,0 +1,12 @@
+{{ $content := .Inner }}
+<div class="weekly-workspace" data-weekly>
+  <nav class="weekly-nav" aria-label="周次目录">
+    <p class="weekly-nav-label">周次目录 <span>WEEKLY PLAN</span></p>
+    <div class="weekly-links">
+    {{ range .Scratch.Get "weeks" }}
+      <a href="#{{ .id }}" data-week-link><span class="week-link-number">{{ .label }}</span><span class="week-link-date">{{ .date }}</span></a>
+    {{ end }}
+    </div>
+  </nav>
+  <div class="weekly-panels prose dark:prose-invert">{{ $content }}</div>
+</div>
