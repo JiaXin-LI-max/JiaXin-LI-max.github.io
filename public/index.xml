@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2026 李佳兴</copyright>
-    <lastBuildDate>Wed, 15 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>每周计划</title>
+      <link>http://localhost:1313/weekly/</link>
+      <pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/weekly/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>我的第一篇博客</title>
@@ -45,16 +55,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://localhost:1313/starfield/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>每周计划</title>
-      <link>http://localhost:1313/weekly/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://localhost:1313/weekly/</guid>
       <description></description>
       
     </item>

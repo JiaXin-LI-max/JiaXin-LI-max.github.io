@@ -14,7 +14,7 @@ title = "李佳兴"
   [params.author]
     name = "李佳兴"
     image = "img/avatar.jpg"
-    headline = "仪器科学与技术在读 · FPGA / 超紧密测量 方向"
+    headline = "仪器科学与技术在读 · FPGA / 超精密测量 方向"
     bio = "像建设新中国一样建设自己。"
     links = [
       { github = "https://github.com/JiaXin-LI-max" },
